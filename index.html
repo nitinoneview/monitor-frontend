@@ -95,17 +95,10 @@
       font-weight: bold;
     }
 
-    .card-value {
-      font-size: 15px;
-      color: #cbd5e1;
-      margin-top: 4px;
-    }
-
-    /* Colors */
-    .cpu .gauge-fill  { stroke: #38bdf8; }
-    .cpu .gauge-text  { color: #38bdf8; }
-    .ram .gauge-fill  { stroke: #a78bfa; }
-    .ram .gauge-text  { color: #a78bfa; }
+    .cpu  .gauge-fill { stroke: #38bdf8; }
+    .cpu  .gauge-text { color: #38bdf8; }
+    .ram  .gauge-fill { stroke: #a78bfa; }
+    .ram  .gauge-text { color: #a78bfa; }
     .disk .gauge-fill { stroke: #34d399; }
     .disk .gauge-text { color: #34d399; }
 
@@ -131,7 +124,6 @@
       font-weight: bold;
     }
 
-    /* History Table */
     .history {
       max-width: 1000px;
       margin: 0 auto;
@@ -164,7 +156,7 @@
 
     td {
       padding: 10px 12px;
-      border-bottom: 1px solid #1e293b;
+      border-bottom: 1px solid #263148;
       color: #cbd5e1;
     }
 
@@ -188,7 +180,6 @@
   <p id="last-updated">Fetching data...</p>
 </header>
 
-<!-- Gauge Cards -->
 <div class="cards">
   <div class="card cpu">
     <h3>CPU Usage</h3>
@@ -196,8 +187,7 @@
       <svg width="120" height="120" viewBox="0 0 120 120">
         <circle class="gauge-bg" cx="60" cy="60" r="50"/>
         <circle class="gauge-fill" id="cpu-gauge" cx="60" cy="60" r="50"
-          stroke-dasharray="314"
-          stroke-dashoffset="314"/>
+          stroke-dasharray="314" stroke-dashoffset="314"/>
       </svg>
       <div class="gauge-text" id="cpu-text">0%</div>
     </div>
@@ -209,8 +199,7 @@
       <svg width="120" height="120" viewBox="0 0 120 120">
         <circle class="gauge-bg" cx="60" cy="60" r="50"/>
         <circle class="gauge-fill" id="ram-gauge" cx="60" cy="60" r="50"
-          stroke-dasharray="314"
-          stroke-dashoffset="314"/>
+          stroke-dasharray="314" stroke-dashoffset="314"/>
       </svg>
       <div class="gauge-text" id="ram-text">0%</div>
     </div>
@@ -222,8 +211,7 @@
       <svg width="120" height="120" viewBox="0 0 120 120">
         <circle class="gauge-bg" cx="60" cy="60" r="50"/>
         <circle class="gauge-fill" id="disk-gauge" cx="60" cy="60" r="50"
-          stroke-dasharray="314"
-          stroke-dashoffset="314"/>
+          stroke-dasharray="314" stroke-dashoffset="314"/>
       </svg>
       <div class="gauge-text" id="disk-text">0%</div>
     </div>
@@ -235,13 +223,12 @@
   </div>
 </div>
 
-<!-- History Table -->
 <div class="history">
   <h2>Recent History</h2>
   <table>
     <thead>
       <tr>
-        <th>Time</th>
+        <th>Time (IST)</th>
         <th>CPU</th>
         <th>RAM</th>
         <th>Disk</th>
@@ -250,13 +237,28 @@
       </tr>
     </thead>
     <tbody id="history-body">
-      <tr><td colspan="6" style="color:#64748b">Loading...</td></tr>
+      <tr><td colspan="6" style="color:#64748b;text-align:center">Loading...</td></tr>
     </tbody>
   </table>
 </div>
 
 <script>
   const API = 'https://monitor-api-e8ez.onrender.com/api.php';
+
+  // UTC string ko IST mein convert karo
+  function toIST(utcStr) {
+    const d = new Date(utcStr.replace(' ', 'T') + 'Z');
+    return d.toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    });
+  }
 
   function setGauge(id, percent) {
     const circumference = 314;
@@ -273,24 +275,21 @@
 
         const latest = data[0];
 
-        // Update gauges
         setGauge('cpu',  parseFloat(latest.cpu_percent));
         setGauge('ram',  parseFloat(latest.ram_percent));
         setGauge('disk', parseFloat(latest.disk_percent));
 
-        // Uptime + hostname
         document.getElementById('uptime-text').textContent = latest.uptime;
         document.getElementById('hostname').textContent = '🖥️ ' + latest.hostname;
         document.getElementById('last-updated').textContent =
-          'Last updated: ' + latest.recorded_at.replace('T', ' ');
+          'Last updated: ' + toIST(latest.recorded_at) + ' IST';
 
-        // History table
         const tbody = document.getElementById('history-body');
         tbody.innerHTML = '';
         data.forEach(row => {
           tbody.innerHTML += `
             <tr>
-              <td>${row.recorded_at.slice(0, 19).replace('T',' ')}</td>
+              <td>${toIST(row.recorded_at)}</td>
               <td>${parseFloat(row.cpu_percent).toFixed(1)}%</td>
               <td>${parseFloat(row.ram_percent).toFixed(1)}%</td>
               <td>${parseFloat(row.disk_percent).toFixed(1)}%</td>
@@ -299,12 +298,11 @@
             </tr>`;
         });
       })
-      .catch(err => {
+      .catch(() => {
         document.getElementById('last-updated').textContent = 'Error fetching data';
       });
   }
 
-  // Load immediately + har 60 second mein refresh
   fetchData();
   setInterval(fetchData, 60000);
 </script>
