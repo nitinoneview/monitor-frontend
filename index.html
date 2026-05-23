@@ -12,33 +12,25 @@
       background: #0f172a;
       color: #e2e8f0;
       min-height: 100vh;
-      padding: 16px;
+      padding: 12px;
     }
 
     header {
       text-align: center;
-      padding: 16px 0 20px;
+      padding: 14px 0 18px;
     }
 
     header h1 {
-      font-size: 22px;
+      font-size: 20px;
       color: #38bdf8;
       letter-spacing: 1px;
     }
 
-    header p {
-      color: #64748b;
-      margin-top: 6px;
-      font-size: 13px;
-    }
+    @media (min-width: 768px) { header h1 { font-size: 26px; } }
 
+    header p { color: #64748b; margin-top: 5px; font-size: 12px; }
     #last-updated { color: #22c55e; font-size: 12px; margin-top: 4px; }
-
-    #server-status {
-      margin-top: 8px;
-      font-size: 15px;
-      font-weight: bold;
-    }
+    #server-status { margin-top: 6px; font-size: 14px; font-weight: bold; }
 
     /* Offline Banner */
     #offline-banner {
@@ -47,160 +39,140 @@
       border: 1px solid #ef4444;
       color: #fca5a5;
       text-align: center;
-      padding: 12px 20px;
+      padding: 10px 16px;
       border-radius: 10px;
-      margin: 0 auto 20px;
-      max-width: 1000px;
-      font-size: 14px;
+      margin: 0 auto 16px;
+      max-width: 1100px;
+      font-size: 13px;
     }
 
     #offline-banner .banner-title {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: bold;
       color: #ef4444;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
-    /* Cards */
-    .cards {
+    /* Section title */
+    .section-title {
+      max-width: 1100px;
+      margin: 0 auto 10px;
+      font-size: 11px;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0 2px;
+    }
+
+    /* Gauge Cards - 2 col mobile, 4 col tablet+ */
+    .gauge-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      max-width: 1000px;
-      margin: 0 auto 24px;
+      gap: 10px;
+      max-width: 1100px;
+      margin: 0 auto 10px;
     }
 
-    @media (min-width: 640px) {
-      .cards { grid-template-columns: repeat(4, 1fr); gap: 20px; }
-      header h1 { font-size: 28px; }
+    @media (min-width: 600px) { .gauge-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    /* Stat Cards - 2 col mobile, 4 col tablet+ */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      max-width: 1100px;
+      margin: 0 auto 16px;
     }
+
+    @media (min-width: 600px) { .stat-grid { grid-template-columns: repeat(4, 1fr); } }
+    @media (min-width: 900px) { .stat-grid { grid-template-columns: repeat(4, 1fr); } }
 
     .card {
       background: #1e293b;
-      border-radius: 14px;
-      padding: 16px 12px;
+      border-radius: 12px;
+      padding: 14px 10px;
       text-align: center;
       border: 1px solid #334155;
     }
 
     .card h3 {
-      font-size: 11px;
+      font-size: 10px;
       color: #94a3b8;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
+    /* Gauge */
     .gauge-wrap {
       position: relative;
-      width: 90px;
-      height: 90px;
-      margin: 0 auto 8px;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 6px;
     }
 
-    @media (min-width: 640px) {
-      .gauge-wrap { width: 110px; height: 110px; }
-    }
+    @media (min-width: 600px) { .gauge-wrap { width: 100px; height: 100px; } }
 
     .gauge-wrap svg { transform: rotate(-90deg); }
-
-    .gauge-bg {
-      fill: none;
-      stroke: #334155;
-      stroke-width: 9;
-    }
-
-    .gauge-fill {
-      fill: none;
-      stroke-width: 9;
-      stroke-linecap: round;
-      transition: stroke-dashoffset 1s ease, stroke 0.5s ease;
-    }
+    .gauge-bg { fill: none; stroke: #334155; stroke-width: 8; }
+    .gauge-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s ease, stroke 0.5s ease; }
 
     .gauge-text {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       transition: color 0.5s ease;
     }
 
-    @media (min-width: 640px) {
-      .gauge-text { font-size: 22px; }
+    @media (min-width: 600px) { .gauge-text { font-size: 19px; } }
+
+    /* Stat card value */
+    .stat-val {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 6px 0 3px;
     }
 
-    .uptime-card {
-      background: #1e293b;
-      border-radius: 14px;
-      padding: 16px 12px;
-      text-align: center;
-      border: 1px solid #334155;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .uptime-card h3 {
+    .stat-sub {
       font-size: 11px;
-      color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+      color: #64748b;
     }
 
+    /* Uptime card */
     .uptime-val {
-      font-size: 18px;
+      font-size: 16px;
       color: #fbbf24;
       font-weight: bold;
-      line-height: 1.3;
+      line-height: 1.4;
+      margin-top: 6px;
     }
 
-    @media (min-width: 640px) {
-      .uptime-val { font-size: 22px; }
-    }
+    @media (min-width: 600px) { .uptime-val { font-size: 18px; } }
 
     /* History */
     .history {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
       background: #1e293b;
-      border-radius: 14px;
-      padding: 16px;
+      border-radius: 12px;
+      padding: 14px;
       border: 1px solid #334155;
       overflow-x: auto;
     }
 
     .history h2 {
-      font-size: 13px;
+      font-size: 12px;
       color: #94a3b8;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      min-width: 380px;
-    }
-
-    th {
-      color: #64748b;
-      text-align: left;
-      padding: 8px 10px;
-      border-bottom: 1px solid #334155;
-      font-size: 12px;
-    }
-
-    td {
-      padding: 9px 10px;
-      border-bottom: 1px solid #263148;
-      color: #cbd5e1;
-    }
-
+    table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 500px; }
+    th { color: #64748b; text-align: left; padding: 7px 8px; border-bottom: 1px solid #334155; font-size: 11px; }
+    td { padding: 8px 8px; border-bottom: 1px solid #263148; color: #cbd5e1; }
     tr:hover td { background: #0f172a; }
 
     .status-ok {
@@ -209,7 +181,7 @@
       color: #22c55e;
       padding: 2px 8px;
       border-radius: 20px;
-      font-size: 11px;
+      font-size: 10px;
     }
   </style>
 </head>
@@ -229,7 +201,9 @@
 </div>
 
 <!-- Gauge Cards -->
-<div class="cards">
+<div class="section-title">Resource Usage</div>
+<div class="gauge-grid">
+
   <div class="card">
     <h3>CPU Usage</h3>
     <div class="gauge-wrap">
@@ -266,10 +240,59 @@
     </div>
   </div>
 
-  <div class="uptime-card">
+  <div class="card">
+    <h3>Swap Usage</h3>
+    <div class="gauge-wrap">
+      <svg width="100%" height="100%" viewBox="0 0 110 110">
+        <circle class="gauge-bg" cx="55" cy="55" r="46"/>
+        <circle class="gauge-fill" id="swap-gauge" cx="55" cy="55" r="46"
+          stroke-dasharray="289" stroke-dashoffset="289" stroke="#22c55e"/>
+      </svg>
+      <div class="gauge-text" id="swap-text">0%</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Stat Cards -->
+<div class="section-title">System Info</div>
+<div class="stat-grid">
+
+  <div class="card">
     <h3>Uptime</h3>
     <div class="uptime-val" id="uptime-text">--</div>
   </div>
+
+  <div class="card">
+    <h3>Load Average</h3>
+    <div class="stat-val" style="color:#a78bfa" id="load-text">--</div>
+    <div class="stat-sub" id="load-sub">1m / 5m / 15m</div>
+  </div>
+
+  <div class="card">
+    <h3>Processes</h3>
+    <div class="stat-val" style="color:#38bdf8" id="proc-text">--</div>
+    <div class="stat-sub">running</div>
+  </div>
+
+  <div class="card">
+    <h3>Threads</h3>
+    <div class="stat-val" style="color:#34d399" id="thread-text">--</div>
+    <div class="stat-sub">total</div>
+  </div>
+
+  <div class="card">
+    <h3>IOWait</h3>
+    <div class="stat-val" style="color:#fbbf24" id="iowait-text">--</div>
+    <div class="stat-sub">% wait</div>
+  </div>
+
+  <div class="card">
+    <h3>Users</h3>
+    <div class="stat-val" style="color:#f472b6" id="users-text">--</div>
+    <div class="stat-sub">logged in</div>
+  </div>
+
 </div>
 
 <!-- History Table -->
@@ -282,11 +305,13 @@
         <th>CPU</th>
         <th>RAM</th>
         <th>Disk</th>
+        <th>Load</th>
+        <th>Proc</th>
         <th>Status</th>
       </tr>
     </thead>
     <tbody id="history-body">
-      <tr><td colspan="5" style="color:#64748b;text-align:center">Loading...</td></tr>
+      <tr><td colspan="7" style="color:#64748b;text-align:center">Loading...</td></tr>
     </tbody>
   </table>
 </div>
@@ -325,37 +350,46 @@
       .then(r => r.json())
       .then(data => {
         if (!data.length) return;
-        const latest = data[0];
+        const l = data[0];
 
-        setGauge('cpu',  parseFloat(latest.cpu_percent));
-        setGauge('ram',  parseFloat(latest.ram_percent));
-        setGauge('disk', parseFloat(latest.disk_percent));
+        // Gauges
+        setGauge('cpu',  parseFloat(l.cpu_percent));
+        setGauge('ram',  parseFloat(l.ram_percent));
+        setGauge('disk', parseFloat(l.disk_percent));
+        setGauge('swap', parseFloat(l.swap_percent || 0));
 
-        document.getElementById('uptime-text').textContent = latest.uptime;
-        document.getElementById('hostname').textContent    = '🖥️ ' + latest.hostname;
+        // Stat cards
+        document.getElementById('uptime-text').textContent  = l.uptime;
+        document.getElementById('load-text').textContent    = (l.load_1 || '0');
+        document.getElementById('load-sub').textContent     = `${l.load_1} / ${l.load_5} / ${l.load_15}`;
+        document.getElementById('proc-text').textContent    = l.processes || '--';
+        document.getElementById('thread-text').textContent  = l.threads   || '--';
+        document.getElementById('iowait-text').textContent  = (parseFloat(l.iowait || 0).toFixed(2)) + '%';
+        document.getElementById('users-text').textContent   = l.users     || '0';
+
+        // Header
+        document.getElementById('hostname').textContent = '🖥️ ' + l.hostname;
         document.getElementById('last-updated').textContent =
-          'Last updated: ' + toIST(latest.recorded_at) + ' IST';
+          'Last updated: ' + toIST(l.recorded_at) + ' IST';
 
-        // Online / Offline check
-        const lastTime    = new Date(latest.recorded_at.replace(' ', 'T') + 'Z');
-        const diffMinutes = (new Date() - lastTime) / 1000 / 60;
-        const statusEl    = document.getElementById('server-status');
-        const banner      = document.getElementById('offline-banner');
-        const lastSeen    = document.getElementById('last-seen-text');
+        // Online/Offline
+        const diffMin  = (new Date() - new Date(l.recorded_at.replace(' ','T')+'Z')) / 60000;
+        const statusEl = document.getElementById('server-status');
+        const banner   = document.getElementById('offline-banner');
+        const lastSeen = document.getElementById('last-seen-text');
 
-        if (diffMinutes > 10) {
-          statusEl.textContent   = '🔴 Server Offline';
-          statusEl.style.color   = '#ef4444';
-          banner.style.display   = 'block';
-          lastSeen.textContent   = 'Last seen: ' + Math.round(diffMinutes) +
-            ' minutes ago — ' + toIST(latest.recorded_at) + ' IST';
+        if (diffMin > 10) {
+          statusEl.textContent = '🔴 Server Offline';
+          statusEl.style.color = '#ef4444';
+          banner.style.display = 'block';
+          lastSeen.textContent = 'Last seen: ' + Math.round(diffMin) + ' minutes ago — ' + toIST(l.recorded_at) + ' IST';
         } else {
-          statusEl.textContent   = '🟢 Server Online';
-          statusEl.style.color   = '#22c55e';
-          banner.style.display   = 'none';
+          statusEl.textContent = '🟢 Server Online';
+          statusEl.style.color = '#22c55e';
+          banner.style.display = 'none';
         }
 
-        // History table
+        // History
         const tbody = document.getElementById('history-body');
         tbody.innerHTML = '';
         data.forEach(row => {
@@ -368,6 +402,8 @@
               <td style="color:${getColor(cpu)}">${cpu.toFixed(1)}%</td>
               <td style="color:${getColor(ram)}">${ram.toFixed(1)}%</td>
               <td style="color:${getColor(disk)}">${disk.toFixed(1)}%</td>
+              <td style="color:#a78bfa">${row.load_1 || '--'}</td>
+              <td style="color:#38bdf8">${row.processes || '--'}</td>
               <td><span class="status-ok">OK</span></td>
             </tr>`;
         });
